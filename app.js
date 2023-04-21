@@ -32,7 +32,7 @@ function playRound(playerSelection, computerSelection) {
   // Check who is the winner
   if (myPlayerSelection === 'Rock' && myComputerSelection === 'Scissors') {
     winner = 'player';
-  } else if (myPlayerSelection === 'Papper' && myComputerSelection === 'Rock'){
+  } else if (myPlayerSelection === 'Paper' && myComputerSelection === 'Rock'){
     winner = 'player';
   } else if (myPlayerSelection === 'Scissors' && myComputerSelection === 'Paper') {
     winner = 'player';
@@ -47,24 +47,50 @@ function playRound(playerSelection, computerSelection) {
 }
 
 // main function
-function game() {
-  let myPlayerSelection;
-  let myComputerSelection;
+// function game() {
+//   let myPlayerSelection;
+//   let myComputerSelection;
 
-  // Play 5 times the game
-  for (let index = 0; index < 5; index++) {
+//   // Play 5 times the game
+// //   for (le index = 0; index < 5; index++) {
+//     myComputerSelection = computerPlay();
+//     myPlayerSelection = window.prompt('Choose an option: Rock, Paper or Scissors.');
+
+//     // Check if it is not a valid option, then ask again for the option, 
+//     //  until is valid
+//     while (!validOption(myPlayerSelection)) {
+//       myPlayerSelection = window.prompt('Error! Choose a valid option: Rock, Paper or Scissors.');
+//     }
+
+//     // Play a round
+//     console.log(playRound(myPlayerSelection, myComputerSelection));
+// //   }
+// }
+
+// game();
+
+let rock = document.querySelector('#rock');
+let paper = document.querySelector('#paper');
+let scissors = document.querySelector('#scissors');
+
+rock.addEventListener('click', (e) => {
+    // game('Rock');
+    play(e.target.innerHTML);
+}); 
+paper.addEventListener('click', (e) => {
+    // game('Paper');
+    play(e.target.innerHTML);
+}); 
+scissors.addEventListener('click', (e) => {
+    // game('Scissors');
+    play(e.target.innerHTML);
+}); 
+
+function play(playerSelection) {
     myComputerSelection = computerPlay();
-    myPlayerSelection = window.prompt('Choose an option: Rock, Paper or Scissors.');
-
-    // Check if it is not a valid option, then ask again for the option, 
-    //  until is valid
-    while (!validOption(myPlayerSelection)) {
-      myPlayerSelection = window.prompt('Error! Choose a valid option: Rock, Paper or Scissors.');
-    }
-
-    // Play a round
-    console.log(playRound(myPlayerSelection, myComputerSelection));
-  }
+    console.log('Computer selects: ' + myComputerSelection);
+    console.log(playRound(playerSelection, myComputerSelection));
 }
 
-game();
+//  2.3
+//  Add a div for displaying results and change all of your console.logs into DOM methods.
