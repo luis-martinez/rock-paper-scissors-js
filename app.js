@@ -41,6 +41,15 @@ function playRound(playerSelection, computerSelection) {
   }  else {
     winner = 'computer';
   }
+ 
+  // If the winner is the computer add computerWins +1 to the computer score
+  if (winner === 'computer'){
+    computerWins++;
+  }
+  // If the winner is the player add playerWins +1 to the player score
+  if (winner === 'player'){
+    playerWins++;
+  }
 
   // return who is the winner
   return (winner === 'player') ? messagePlayerWins : (winner === 'computer') ? messageComputerWins : messageNone;
@@ -78,6 +87,16 @@ let scissors = document.querySelector('#scissors');
 let option = document.querySelector('.option');
 // Create a new element to display the results
 const results = document.createElement('div');
+// Create a new element to display the score
+const score = document.createElement('div');
+// Create a new element to display the winner of the game
+const winnerGame = document.createElement('div');
+
+// Declare variables computer and player wins
+let computerWins = 0;
+let playerWins = 0;
+// Declare variable end of the game
+let endGame = false;
 
 // Add event listeners for the options
 rock.addEventListener('click', (e) => {
@@ -95,6 +114,15 @@ scissors.addEventListener('click', (e) => {
 
 // Play the game when the user selects an option
 function play(playerSelection) {
+  // Reset variables when the game is over
+  if (endGame) {
+    playerWins = 0;
+    computerWins = 0;
+    endGame = false;
+    // Removes the HTML, DOM code of the winner of the game
+    winnerGame.remove();
+  }
+
   // Computer plays
   myComputerSelection = computerPlay();
   // Add text and HTML code in the results
@@ -102,5 +130,29 @@ function play(playerSelection) {
   results.innerHTML += '<br>' + playRound(playerSelection, myComputerSelection);
   // Show the results after the container 'option' in a new div 'results'
   option.parentNode.insertBefore(results, option.nextSibling);
+  showScore();
+}
 
+//Show the score of the game and the winner
+function showScore(){
+  // Add text to the score
+  score.textContent = 'Score: ' + 'Player ' + playerWins + ' - ' + 'Computer ' + computerWins;
+  // Show the score after the div 'results' in a new div 'score'
+  results.parentNode.insertBefore(score, results.nextSibling);
+
+  // If the player or the computer wins this game, show the winner
+  if ((playerWins == 5) || (computerWins == 5)){
+    // Add the content of the winner to the winnerGame variable (div)
+    if (playerWins == 5) {
+      winnerGame.textContent = 'PLAYER WINS THIS GAME!!!';
+    }
+    if (computerWins == 5){
+      winnerGame.textContent = 'COMPUTER WINS THIS GAME!!!';
+    }
+    // End the game
+    endGame = true;
+    
+    // Show the winner after the div 'score' in a new div 'winnerGame'
+    score.parentNode.insertBefore(winnerGame, score.nextSibling);
+  }
 }
