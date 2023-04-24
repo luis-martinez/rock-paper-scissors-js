@@ -69,10 +69,17 @@ function playRound(playerSelection, computerSelection) {
 
 // game();
 
+// Selects the buttons by the id
 let rock = document.querySelector('#rock');
 let paper = document.querySelector('#paper');
 let scissors = document.querySelector('#scissors');
 
+// Selects the container of the options
+let option = document.querySelector('.option');
+// Create a new element to display the results
+const results = document.createElement('div');
+
+// Add event listeners for the options
 rock.addEventListener('click', (e) => {
     // game('Rock');
     play(e.target.innerHTML);
@@ -86,11 +93,14 @@ scissors.addEventListener('click', (e) => {
     play(e.target.innerHTML);
 }); 
 
+// Play the game when the user selects an option
 function play(playerSelection) {
-    myComputerSelection = computerPlay();
-    console.log('Computer selects: ' + myComputerSelection);
-    console.log(playRound(playerSelection, myComputerSelection));
-}
+  // Computer plays
+  myComputerSelection = computerPlay();
+  // Add text and HTML code in the results
+  results.textContent = 'Computer selects: ' + myComputerSelection;
+  results.innerHTML += '<br>' + playRound(playerSelection, myComputerSelection);
+  // Show the results after the container 'option' in a new div 'results'
+  option.parentNode.insertBefore(results, option.nextSibling);
 
-//  2.3
-//  Add a div for displaying results and change all of your console.logs into DOM methods.
+}
